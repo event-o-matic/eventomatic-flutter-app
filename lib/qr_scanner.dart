@@ -19,12 +19,12 @@ class QRScanner extends StatefulWidget {
 class _QRScannerState extends State<QRScanner> {
   String error;
   String text;
-  Color textColor = Colors.black;
+  Color textColor = Colors.white;
 
   Future _scanQR() async {
     setState(() {
       text = "Scanning...";
-      textColor = Colors.black;
+      textColor = Colors.white;
       error = null;
     });
     try {
@@ -44,7 +44,7 @@ class _QRScannerState extends State<QRScanner> {
 
       setState(() {
         text = "Success: ${decodedResult["msg"]}";
-        textColor = Colors.green;
+        textColor = Colors.white;
       });
     } on PlatformException catch (ex) {
       error = ex.code == BarcodeScanner.CameraAccessDenied
@@ -79,8 +79,14 @@ class _QRScannerState extends State<QRScanner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF102733),
       appBar: AppBar(
-        title: Text("Scan QR code for ${widget.util}"),
+        backgroundColor: Color(0xFF102733),
+        title: Text("Scan QR code for ${widget.util}",
+        style: TextStyle(
+          color: Colors.white,
+        ),
+        ),
       ),
       body: Center(
         child: Text(
