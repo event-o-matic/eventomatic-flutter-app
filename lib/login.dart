@@ -1,7 +1,8 @@
+import 'package:eventomatic/utilities_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'validator.dart';
-import 'package:eventomatic/utilities_screen.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -45,7 +46,6 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 5,
                 ),
-
                 Container(
                   width: 350,
                   child: TextFormField(
@@ -55,7 +55,6 @@ class _LoginPageState extends State<LoginPage> {
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-
                       fillColor: Color(0xFF29404E),
                       filled: true,
                       labelStyle: _textStyle,
@@ -89,31 +88,29 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                FlatButton(
-                  onPressed: () {
-                    //forgot password screen
-                  },
-                  textColor: Colors.white,
-                  child: Text('Forgot Password?'),
-                ),
                 Container(
-                    height: 50,
-                    width: 200,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: RaisedButton(
-                      textColor: Colors.white,
-                      color: Color(0xFF29404E),
-                      child: Text('Login'),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)
-                      ),
-                      onPressed: () {
-                        if(!_key.currentState.validate()) return;
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (
-                            context) => UtilitiesScreen()));
-
-                      },
-                    )),
+                  height: 100,
+                  width: 200,
+                  padding: EdgeInsets.fromLTRB(10, 50, 10, 0),
+                  child: RaisedButton(
+                    textColor: Colors.white,
+                    color: Color(0xFF29404E),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    onPressed: () {
+                      if (!_key.currentState.validate()) return;
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UtilitiesScreen()));
+                    },
+                  ),
+                ),
               ],
             ),
           ),

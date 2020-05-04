@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 
 class UserProfilePage extends StatelessWidget {
   final String _name = "Dhrumil Pandya";
-  final String _status = "Developer";
+  final String _status = "D.V.Pandya";
   final String _mobile = "9824343803";
   final String _email = "dvp2138433@gmail.com";
-  final String _company = "Sustainix";
+  final String _company = "Navracahana University";
+  final String _profileImage = "assets/profileimage.jpg";
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class UserProfilePage extends StatelessWidget {
           width: 140,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/appbar.jpg'),
+              image: AssetImage(_profileImage),
               fit: BoxFit.cover,
             ),
             borderRadius: BorderRadius.circular(80),

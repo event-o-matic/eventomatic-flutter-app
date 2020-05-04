@@ -1,10 +1,7 @@
+import 'package:eventomatic/profile.dart';
 import 'package:eventomatic/qr_scanner.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:eventomatic/profile.dart';
-
-//import 'package:flutter/services.dart';
-//import 'screen.dart';
 
 const allowedUtils = [
   "CHECKIN",
@@ -17,6 +14,8 @@ const allowedUtils = [
 ];
 
 class UtilitiesScreen extends StatelessWidget {
+  final String _profileImage = "assets/profileimage.jpg";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,17 +31,24 @@ class UtilitiesScreen extends StatelessWidget {
             backgroundColor: Color(0xFF102733),
             expandedHeight: 213,
             pinned: true,
-            titleSpacing: 5,
+//            titleSpacing: 5,
+
             actions: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute( builder : (context) => UserProfilePage()));
-                },
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 20,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UserProfilePage()));
+                  },
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage(_profileImage),
+                  ),
                 ),
-              ),
+              )
+//
             ],
             flexibleSpace: new FlexibleSpaceBar(
               title: Text('Eventomatic'),
@@ -55,6 +61,7 @@ class UtilitiesScreen extends StatelessWidget {
             delegate: SliverChildBuilderDelegate(
               (context, index) => new Center(
                 child: GridView(
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   padding: EdgeInsets.all(20),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
