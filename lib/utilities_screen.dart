@@ -1,3 +1,4 @@
+import 'package:eventomatic/data/demo_data.dart';
 import 'package:flutter/material.dart';
 import 'package:eventomatic/qr_scanner.dart';
 
@@ -27,16 +28,16 @@ class UtilitiesScreen extends StatelessWidget {
             crossAxisSpacing: 20,
             mainAxisSpacing: 20,
           ),
-          children: allowedUtils
-              .map((util) => RaisedButton(
+          children: events[0].schedule.where((s) => s.isConsumable).toList()
+              .map((s) => RaisedButton(
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => QRScanner(util: util),
+                        builder: (context) => QRScanner(util: s.title),
                       ),
                     ),
                     child: Text(
-                      util,
+                      s.title,
                       style: TextStyle(fontSize: 18),
                     ),
                   ))

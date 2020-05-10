@@ -1,3 +1,4 @@
+import 'package:eventomatic/my_events_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eventomatic/utilities_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.deepPurple,
         fontFamily: GoogleFonts.poppins().fontFamily,
       ),
-      home: UtilitiesScreen(),
+      home: MyEventsScreen(),
     );
   }
 }
