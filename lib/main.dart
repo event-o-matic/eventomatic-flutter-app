@@ -1,11 +1,16 @@
 //import 'package:eventomatic/login.dart';
-import 'package:eventomatic/login.dart';
+import 'package:eventomatic/GooeyEdgeDemo.dart';
 import 'package:flutter/material.dart';
-//import 'package:eventomatic/utilities_screen.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 //import 'login.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown,DeviceOrientation.portraitUp]).then((_) {
+  runApp(MyApp());
+  });
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -17,7 +22,7 @@ class MyApp extends StatelessWidget {
 //        primaryColor: Colors.deepPurple,
         fontFamily: GoogleFonts.poppins().fontFamily,
       ),
-      home: LoginPage(),
+      home: GooeyEdgeDemo(),
     );
   }
 }
