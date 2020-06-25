@@ -1,16 +1,19 @@
+import 'package:eventomatic/all_users.dart';
 import 'package:eventomatic/profile.dart';
 import 'package:eventomatic/qr_scanner.dart';
+import 'package:eventomatic/viewmodels/auth_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 const allowedUtils = [
-  "CHECKIN",
-  "REGKIT",
-  "BREAKFAST",
-  "LUNCH",
-  "DINNER",
-  "PRIZE",
-  "CERTIFICATE",
+  "checkin",
+  "regkit",
+  "breakfast",
+  "lunch",
+  "dinner",
+  "prize",
+  "certificate",
 ];
 
 class UtilitiesScreen extends StatelessWidget {
@@ -18,6 +21,8 @@ class UtilitiesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = Provider.of<AuthViewModel>(context);
+
     return Scaffold(
       backgroundColor: Color(0xFF102733),
 //      appBar: AppBar(
@@ -32,7 +37,14 @@ class UtilitiesScreen extends StatelessWidget {
             expandedHeight: 213,
             pinned: true,
 //            titleSpacing: 5,
-
+            leading: IconButton(
+              icon: Icon(Icons.info_outline),
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AllUserScreen(),
+                      fullscreenDialog: false)),
+            ),
             actions: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -41,7 +53,7 @@ class UtilitiesScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => UserProfilePage()));
+                            builder: (context) => UserProfilePage(user: model.user,isMyProfilePage: true,)));
                   },
                   child: CircleAvatar(
                     backgroundImage: AssetImage(_profileImage),

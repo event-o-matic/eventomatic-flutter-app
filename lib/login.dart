@@ -1,7 +1,9 @@
+import 'package:eventomatic/base/base_view_model.dart';
 import 'package:eventomatic/utilities_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import 'viewmodels/auth_view_model.dart';
 import 'validator.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,6 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _key = GlobalKey<FormState>();
+  final loginScaffoldKey = GlobalKey<ScaffoldState>();
 
   final TextStyle _textStyle = TextStyle(
     color: Colors.white,
@@ -20,19 +23,20 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {
+    final authModel = Provider.of<AuthViewModel>(context);
     return Scaffold(
-      appBar: AppBar(
+        key: loginScaffoldKey,
+        appBar: AppBar(
         title: Text("Eventomatic"),
         backgroundColor: Color(0xFF102733),
-      ),
+        ),
       backgroundColor: Color(0xFF102733),
       body: Center(
         child: SingleChildScrollView(
@@ -73,10 +77,8 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextFormField(
                     style: _textStyle,
                     validator: passwordValidator,
-                    textDirection: TextDirection.ltr,
                     controller: passwordController,
                     obscureText: true,
-                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       fillColor: Color(0xFF29404E),
                       filled: true,
@@ -88,11 +90,12 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
+
                 Container(
                   height: 100,
                   width: 200,
                   padding: EdgeInsets.fromLTRB(10, 50, 10, 0),
-                  child: RaisedButton(
+                  child: authModel.state == ViewState.loading ? Center(child: CircularProgressIndicator()) : RaisedButton(
                     textColor: Colors.white,
                     color: Color(0xFF29404E),
                     child: Text(
@@ -102,12 +105,20 @@ class _LoginPageState extends State<LoginPage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (!_key.currentState.validate()) return;
-                      Navigator.pushReplacement(
+                      await authModel.logIn(
+                          emailController.text, passwordController.text);
+                      if (authModel.hasError) {
+                        showError(loginScaffoldKey.currentState, authModel.error);
+                      } else {
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => UtilitiesScreen()));
+                            builder: (context) => UtilitiesScreen(),
+                          ),
+                        );
+                      }
                     },
                   ),
                 ),
@@ -118,4 +129,23 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+Widget showError(ScaffoldState scaffoldState, String errorMessage, {Widget child}) {
+  if (scaffoldState != null) {
+    scaffoldState.hideCurrentSnackBar();
+    scaffoldState.showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text(errorMessage),
+        action: SnackBarAction(
+          label: "OK",
+          onPressed: () {
+            // Navigator.pop(scaffoldState);
+          },
+        ),
+      ),
+    );
+  }
+  return child ?? Container();
 }

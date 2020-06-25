@@ -44,7 +44,7 @@ class _QRScannerState extends State<QRScanner> {
 
       setState(() {
         text = "Success: ${decodedResult["msg"]}";
-        textColor = Colors.white;
+        textColor = Colors.green;
       });
     } on PlatformException catch (ex) {
       error = ex.code == BarcodeScanner.CameraAccessDenied

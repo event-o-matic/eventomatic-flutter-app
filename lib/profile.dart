@@ -1,18 +1,20 @@
+import 'package:eventomatic/main.dart';
+import 'package:eventomatic/models/user.dart';
+import 'package:eventomatic/viewmodels/auth_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class UserProfilePage extends StatelessWidget {
-  final String _name = "Dhrumil Pandya";
-  final String _status = "D.V.Pandya";
-  final String _mobile = "9824343803";
-  final String _email = "dvp2138433@gmail.com";
-  final String _company = "Navracahana University";
-  final String _profileImage = "assets/profileimage.jpg";
+  final User user;
+  final isMyProfilePage;
+
+  const UserProfilePage({Key key, @required this.user, this.isMyProfilePage = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-
+    final model = Provider.of<AuthViewModel>(context);
     TextStyle detailStyle = TextStyle(
       fontFamily: 'Roboto',
       color: Colors.white,
@@ -40,7 +42,7 @@ class UserProfilePage extends StatelessWidget {
           width: 140,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(_profileImage),
+              image: NetworkImage(user.avatar),
               fit: BoxFit.cover,
             ),
             borderRadius: BorderRadius.circular(80),
@@ -62,21 +64,20 @@ class UserProfilePage extends StatelessWidget {
       );
 
       return Text(
-        _name,
+        user.name,
         style: _textStyle,
       );
     }
 
     Widget _buildStatus(BuildContext context) {
       return Container(
-
         padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
         decoration: BoxDecoration(
           color: Color(0xFF29404E),
           borderRadius: BorderRadius.circular(4.0),
         ),
         child: Text(
-          _status,
+          user.role,
           style: TextStyle(
             fontFamily: 'Spectral',
             color: Colors.white,
@@ -90,10 +91,7 @@ class UserProfilePage extends StatelessWidget {
     Widget _comp() {
       return Container(
         padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
-        child: Text(
-          "Company: $_company",
-          style: detailStyle
-        ),
+        child: Text(user.gender, style: detailStyle),
       );
     }
 
@@ -101,7 +99,7 @@ class UserProfilePage extends StatelessWidget {
       return Container(
         padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
         child: Text(
-          "Contact: $_mobile",
+          "Contact: ${user.phone}",
           style: detailStyle,
         ),
       );
@@ -111,7 +109,7 @@ class UserProfilePage extends StatelessWidget {
       return Container(
         padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
         child: Text(
-          "E-mail: $_email",
+          "E-mail: ${user.email}",
           style: detailStyle,
         ),
       );
@@ -120,34 +118,53 @@ class UserProfilePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFF102733),
       appBar: AppBar(
-        backgroundColor:Color(0xFF102733),
+        backgroundColor: Color(0xFF102733),
         title: Text(
-          'D.V\'s Profile',
+          '${user.name}\'s Profile',
         ),
       ),
-      body: Stack(
-        children: <Widget>[
-          _coverImage(),
-          SingleChildScrollView(
-            child: Column(
+      body: user == null
+          ? Center(
+              child: Text("Not LoggedIn!"),
+            )
+          : Stack(
               children: <Widget>[
-                SizedBox(height: screenSize.height / 3.6),
-                _profilePicture(),
-                SizedBox(height: 10),
-                _fullName(),
-                SizedBox(height: 10),
-                _buildStatus(context),
-                SizedBox(height: 10),
-                _comp(),
-                SizedBox(height: 10),
-                _contact(),
-                SizedBox(height: 10),
-                _mail(),
+                _coverImage(),
+                SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: screenSize.height / 3.6),
+                      _profilePicture(),
+                      SizedBox(height: 10),
+                      _fullName(),
+                      SizedBox(height: 10),
+                      _buildStatus(context),
+                      SizedBox(height: 10),
+                      _comp(),
+                      SizedBox(height: 10),
+                      _contact(),
+                      SizedBox(height: 10),
+                      _mail(),
+                      SizedBox(height: 10),
+                      if(isMyProfilePage)
+                      RaisedButton(
+                        onPressed: () {
+                          model.signOut();
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Startup(),
+                            ),
+                          );
+                        },
+                        child: Text("Logout"),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }
