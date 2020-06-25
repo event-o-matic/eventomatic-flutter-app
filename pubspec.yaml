@@ -28,6 +28,9 @@ dependencies:
   google_fonts: ^0.3.9
   provider: ^4.1.2
   material_design_icons_flutter: ^4.0.5345
+  gooey_carousel: ^0.1.2
+  flutter_svg: ^0.17.4
+  shared_preferences: ^0.5.7
 
 dev_dependencies:
   flutter_launcher_icons: ^0.7.4
@@ -52,7 +55,9 @@ flutter:
   assets:
     - assets/appbar.jpg
     - assets/profileimage.jpg
-
+    - assets/how.png
+    - assets/us.png
+    - assets/what.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

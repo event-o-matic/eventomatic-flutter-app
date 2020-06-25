@@ -2,11 +2,18 @@ import 'package:eventomatic/login.dart';
 import 'package:eventomatic/utilities_screen.dart';
 import 'package:eventomatic/viewmodels/auth_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:eventomatic/GooeyEdgeDemo.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-//import 'login.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]).then((_) {
+    runApp(MyApp());
+  });
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -22,6 +29,7 @@ class MyApp extends StatelessWidget {
         ),
         home: LoginPage(),
       ),
+      home: GooeyEdgeDemo(),
     );
   }
 }
@@ -34,16 +42,20 @@ class Startup extends StatefulWidget {
 class _StartupState extends State<Startup> {
   @override
   void initState() {
-    final authModel = Provider.of<AuthViewModel>(context,listen: false);
-    Navigator.pushReplacement(context, MaterialPageRoute(
-      builder: (context) => authModel.isUserLoggedIn ? UtilitiesScreen() : LoginPage()
-    ));
+    final authModel = Provider.of<AuthViewModel>(context, listen: false);
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                authModel.isUserLoggedIn ? UtilitiesScreen() : LoginPage()));
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Center(child: CircularProgressIndicator(),);
+    return Center(
+      child: CircularProgressIndicator(),
+    );
   }
 }
-
