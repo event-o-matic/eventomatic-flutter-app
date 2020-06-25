@@ -1,5 +1,6 @@
 import 'package:eventomatic/base/base_view_model.dart';
 import 'package:eventomatic/utilities_screen.dart';
+import 'package:eventomatic/utils/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   final loginScaffoldKey = GlobalKey<ScaffoldState>();
 
   final TextStyle _textStyle = TextStyle(
-    color: Colors.white,
+    color: ThemeColors.primary,
   );
 
   @override
@@ -35,9 +36,9 @@ class _LoginPageState extends State<LoginPage> {
         key: loginScaffoldKey,
         appBar: AppBar(
         title: Text("Eventomatic"),
-        backgroundColor: Color(0xFF102733),
+        backgroundColor: ThemeColors.primary,
         ),
-      backgroundColor: Color(0xFF102733),
+      backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -59,7 +60,8 @@ class _LoginPageState extends State<LoginPage> {
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      fillColor: Color(0xFF29404E),
+//                      focusColor: ThemeColors.primary,
+                      fillColor: Colors.white,
                       filled: true,
                       labelStyle: _textStyle,
                       border: OutlineInputBorder(
@@ -80,7 +82,8 @@ class _LoginPageState extends State<LoginPage> {
                     controller: passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
-                      fillColor: Color(0xFF29404E),
+
+                      fillColor: Colors.white,
                       filled: true,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -97,10 +100,10 @@ class _LoginPageState extends State<LoginPage> {
                   padding: EdgeInsets.fromLTRB(10, 50, 10, 0),
                   child: authModel.state == ViewState.loading ? Center(child: CircularProgressIndicator()) : RaisedButton(
                     textColor: Colors.white,
-                    color: Color(0xFF29404E),
+                    color: ThemeColors.orange,
                     child: Text(
                       'Login',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),

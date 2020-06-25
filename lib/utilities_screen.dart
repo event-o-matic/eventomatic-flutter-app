@@ -1,6 +1,7 @@
 import 'package:eventomatic/all_users.dart';
 import 'package:eventomatic/profile.dart';
 import 'package:eventomatic/qr_scanner.dart';
+import 'package:eventomatic/utils/theme_colors.dart';
 import 'package:eventomatic/viewmodels/auth_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class UtilitiesScreen extends StatelessWidget {
     final model = Provider.of<AuthViewModel>(context);
 
     return Scaffold(
-      backgroundColor: Color(0xFF102733),
+
 //      appBar: AppBar(
 //
 //        backgroundColor: Color(0xFF102733),
@@ -33,7 +34,7 @@ class UtilitiesScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            backgroundColor: Color(0xFF102733),
+            backgroundColor: ThemeColors.primary,
             expandedHeight: 213,
             pinned: true,
 //            titleSpacing: 5,
@@ -84,13 +85,15 @@ class UtilitiesScreen extends StatelessWidget {
                   children: allowedUtils
                       .map(
                         (util) => RaisedButton(
+
+
                           onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => QRScanner(util: util),
                             ),
                           ),
-                          color: Color(0xFF29404E),
+                          color: ThemeColors.orange,
                           child: Center(
                             child: Column(
                               children: <Widget>[

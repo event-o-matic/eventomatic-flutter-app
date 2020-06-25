@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:eventomatic/utils/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -79,9 +80,9 @@ class _QRScannerState extends State<QRScanner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF102733),
+//      backgroundColor: Color(0xFF102733),
       appBar: AppBar(
-        backgroundColor: Color(0xFF102733),
+        backgroundColor: ThemeColors.primary,
         title: Text("Scan QR code for ${widget.util}",
         style: TextStyle(
           color: Colors.white,
@@ -95,13 +96,18 @@ class _QRScannerState extends State<QRScanner> {
           style: new TextStyle(
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
-            color: textColor,
+            color: ThemeColors.primary,
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: ThemeColors.orange,
         icon: Icon(Icons.camera_alt),
-        label: Text("Scan"),
+        label: Text("Scan",style: new TextStyle(
+
+          fontWeight: FontWeight.bold,
+
+        ),),
         onPressed: _scanQR,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

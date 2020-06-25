@@ -1,5 +1,7 @@
+import 'package:eventomatic/login.dart';
 import 'package:eventomatic/main.dart';
 import 'package:eventomatic/models/user.dart';
+import 'package:eventomatic/utils/theme_colors.dart';
 import 'package:eventomatic/viewmodels/auth_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +18,9 @@ class UserProfilePage extends StatelessWidget {
     Size screenSize = MediaQuery.of(context).size;
     final model = Provider.of<AuthViewModel>(context);
     TextStyle detailStyle = TextStyle(
-      fontFamily: 'Roboto',
-      color: Colors.white,
-      fontSize: 20.0,
+//      fontFamily: 'Roboto',
+      color: ThemeColors.primary,
+      fontSize: 18,
       fontWeight: FontWeight.w300,
     );
 
@@ -47,7 +49,7 @@ class UserProfilePage extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(80),
             border: Border.all(
-              color: Color(0xFF29404E),
+              color:Colors.white,
               width: 10.0,
             ),
           ),
@@ -57,7 +59,7 @@ class UserProfilePage extends StatelessWidget {
 
     Widget _fullName() {
       TextStyle _textStyle = TextStyle(
-        color: Colors.white,
+        color: ThemeColors.primary,
         fontFamily: 'Roboto',
         fontSize: 28,
         fontWeight: FontWeight.w700,
@@ -73,7 +75,7 @@ class UserProfilePage extends StatelessWidget {
       return Container(
         padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
         decoration: BoxDecoration(
-          color: Color(0xFF29404E),
+          color: ThemeColors.orange,
           borderRadius: BorderRadius.circular(4.0),
         ),
         child: Text(
@@ -116,9 +118,9 @@ class UserProfilePage extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Color(0xFF102733),
+//      backgroundColor: Color(0xFF102733),
       appBar: AppBar(
-        backgroundColor: Color(0xFF102733),
+        backgroundColor: ThemeColors.primary,
         title: Text(
           '${user.name}\'s Profile',
         ),
@@ -148,17 +150,23 @@ class UserProfilePage extends StatelessWidget {
                       SizedBox(height: 10),
                       if(isMyProfilePage)
                       RaisedButton(
+                        color: ThemeColors.orange,
                         onPressed: () {
                           model.signOut();
 
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Startup(),
+                              builder: (context) => LoginPage(),
                             ),
                           );
                         },
-                        child: Text("Logout"),
+                        child: Text("Logout",style: TextStyle(
+                          fontFamily: 'Spectral',
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),),
                       ),
                     ],
                   ),
